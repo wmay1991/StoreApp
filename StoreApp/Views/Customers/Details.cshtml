@@ -1,0 +1,67 @@
+﻿@using StoreApp.Models
+@model CustomerViewModel
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Customer</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.isActive)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.isActive)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.billing_address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.billing_address)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.billing_city)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.billing_city)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.billing_state)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.billing_state)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.billing_zip)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.billing_zip)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.customer_id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

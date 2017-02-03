@@ -113,6 +113,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\ItemTest.cs" />
+    <Compile Include="Controllers\OrdersTest.cs" />
+    <Compile Include="Controllers\CustomersTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\HomeControllerTest.cs" />
   </ItemGroup>

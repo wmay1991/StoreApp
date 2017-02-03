@@ -15,8 +15,10 @@ namespace StoreApp.Data
 
         }
 
-        public virtual DbSet<Inventory> Inventory { get; set; }
-
         public virtual DbSet<Item> Items { get; set; }
+
+        public virtual DbSet<Order> Orders { get; set; }
+
+        public virtual DbSet<Customer> Customers { get; set; }
     }
 }

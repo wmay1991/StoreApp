@@ -1,0 +1,136 @@
+﻿@using StoreApp.Models
+@model OrderViewModel
+
+@{
+    ViewBag.Title = "AddOrder";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Add Order</h2>
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Order</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.street_address, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.street_address, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.street_address, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.city, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.city, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.city, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.state, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.state, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.state, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.order_date, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.order_date, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.order_date, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.shipping_date, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.shipping_date, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.shipping_date, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.total_price, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.total_price, new { htmlAttributes = new { @class = "form-control" , @id = "total_price", @readonly = "readonly" } })
+                @Html.ValidationMessageFor(model => model.total_price, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.quantity, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.quantity, new { htmlAttributes = new { @class = "form-control", @id = "quantity", @onchange = "updatePrice()" } })
+                @Html.ValidationMessageFor(model => model.quantity, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.item_id, "item_id", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.item_id, ViewBag.item_id as SelectList,"Please Select", new { @onchange = "getPrice()", @id = "item_id" })
+                @Html.ValidationMessageFor(model => model.item_id, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-10">
+                @Html.LabelFor(model => model.item.price, "Price Per Unit", htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.TextBoxFor(m => m.item.price, htmlAttributes: new { @class = "form-control", @id = "itemprice", @readonly = "readonly" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+<script>
+    function updatePrice()
+    {
+        var item_price = $('#itemprice').val();
+        var quantity = $("#quantity").val();
+        $("#total_price").val(quantity * item_price);
+    }
+
+    function getPrice()
+    {
+        var item_id = $("#item_id").val();
+        if (item_id != "") {
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("GetItemPrice", "Items")',
+                contentType: "application/json; charset=utf-8",
+                data: { item_id: item_id },
+                success: function (response) {
+                    $("#itemprice").val(response)
+                    updatePrice();
+                },
+                error: function () {
+                    alert("Failure")
+                },
+            });
+        } else {
+            $("#itemprice").val(null);
+            updatePrice();
+        }
+    }
+</script>

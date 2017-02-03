@@ -1,0 +1,79 @@
+﻿@model IEnumerable<StoreApp.Core.Order>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Order List</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.item.name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.street_address)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.city)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.state)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.order_date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.shipping_date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.total_price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.quantity)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        @*<td>
+            @Html.HiddenFor(modelItem => item.order_id)
+        </td>*@
+        <td>
+            @Html.HiddenFor(modelItem => item.order_id)
+            @Html.DisplayFor(modelItem => item.item.name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.street_address)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.city)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.state)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.order_date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.shipping_date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.total_price)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.quantity)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "EditOrder", new { id = item.order_id }) |
+            @*@Html.ActionLink("Details", "Details", new { id=item.order_id }) |*@
+            @Html.ActionLink("Delete", "Delete", new { id=item.order_id })
+        </td>
+    </tr>
+}
+</table>
+<p>
+    @Html.ActionLink("Create New Order", "AddOrder")
+</p>

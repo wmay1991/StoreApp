@@ -69,6 +69,26 @@
     <Compile Include="Migrations\201701302051095_Item.Designer.cs">
       <DependentUpon>201701302051095_Item.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201701311831280_Remove Inventory.cs" />
+    <Compile Include="Migrations\201701311831280_Remove Inventory.Designer.cs">
+      <DependentUpon>201701311831280_Remove Inventory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201701311951085_Add Orders.cs" />
+    <Compile Include="Migrations\201701311951085_Add Orders.Designer.cs">
+      <DependentUpon>201701311951085_Add Orders.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201702021550083_DateTimeUpdate.cs" />
+    <Compile Include="Migrations\201702021550083_DateTimeUpdate.Designer.cs">
+      <DependentUpon>201702021550083_DateTimeUpdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201702031624090_Add_Customer.cs" />
+    <Compile Include="Migrations\201702031624090_Add_Customer.Designer.cs">
+      <DependentUpon>201702031624090_Add_Customer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201702031641257_AddForeignKeyToOrders.cs" />
+    <Compile Include="Migrations\201702031641257_AddForeignKeyToOrders.Designer.cs">
+      <DependentUpon>201702031641257_AddForeignKeyToOrders.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="StoreDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -92,6 +112,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201701302051095_Item.resx">
       <DependentUpon>201701302051095_Item.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701311831280_Remove Inventory.resx">
+      <DependentUpon>201701311831280_Remove Inventory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701311951085_Add Orders.resx">
+      <DependentUpon>201701311951085_Add Orders.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702021550083_DateTimeUpdate.resx">
+      <DependentUpon>201702021550083_DateTimeUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702031624090_Add_Customer.resx">
+      <DependentUpon>201702031624090_Add_Customer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702031641257_AddForeignKeyToOrders.resx">
+      <DependentUpon>201702031641257_AddForeignKeyToOrders.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

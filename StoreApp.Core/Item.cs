@@ -9,6 +9,11 @@ namespace StoreApp.Core
 {
     public class Item
     {
+        public Item()
+        {
+          
+        }
+
         [Key]
         public Guid item_id { get; set; }
 
@@ -16,5 +21,21 @@ namespace StoreApp.Core
 
         // decimals are best for financial information because it is easier to round
         public decimal price { get; set; }
+
+        public int quantity { get; set; }
+
+
+        public void CalculateItemQuantity(Order order, Item item, string action)
+        {
+            if (action == "Add")
+            {
+                item.quantity -= order.quantity;
+            }
+            else if (action == "Delete")
+            {
+                item.quantity += order.quantity;
+            }
+
+        }
     }
 }

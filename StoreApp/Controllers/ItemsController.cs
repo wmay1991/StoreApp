@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using StoreApp.Core;
 using StoreApp.Data;
+using StoreApp.Models;
 
 namespace StoreApp.Controllers
 {
@@ -19,6 +20,12 @@ namespace StoreApp.Controllers
         {
             _db = db;
         }
+
+        public ItemsController()
+        {
+            _db = new StoreDbContext();
+        }
+
 
         // GET: Items
         public ActionResult Index()
@@ -42,28 +49,25 @@ namespace StoreApp.Controllers
         }
 
         // GET: Items/Create
-        public ActionResult Create()
+        public ActionResult AddItem()
         {
             return View();
         }
 
-        // POST: Items/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "item_id,name,price")] Item item)
+       [ValidateAntiForgeryToken]
+        public ActionResult AddItem(ItemViewModel vm)
         {
-            if (ModelState.IsValid)
-            {
-                item.item_id = Guid.NewGuid();
-                _db.Items.Add(item);
-                _db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+                vm.item_id = Guid.NewGuid();
+                var mdl = new Item();
+                var item = new ItemViewModel(vm, mdl);
 
-            return View(item);
+                _db.Items.Add(mdl);
+                _db.SaveChanges();
+
+                return RedirectToAction("Index");
         }
+
 
         // GET: Items/Edit/5
         public ActionResult Edit(Guid? id)
@@ -85,38 +89,25 @@ namespace StoreApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "item_id,name,price")] Item item)
+        public ActionResult Edit(ItemViewModel vm)
         {
             if (ModelState.IsValid)
             {
+                var item = _db.Items.Find(vm.item_id);
+                var mdl = new ItemViewModel(vm, item);
+
                 _db.Entry(item).State = EntityState.Modified;
                 _db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(item);
+            return View(vm);
         }
 
-        // GET: Items/Delete/5
-        public ActionResult Delete(Guid? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Item item = _db.Items.Find(id);
-            if (item == null)
-            {
-                return HttpNotFound();
-            }
-            return View(item);
-        }
 
         // POST: Items/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(Guid id)
+        public ActionResult DeleteItem(Guid item_id)
         {
-            Item item = _db.Items.Find(id);
+            Item item = _db.Items.Find(item_id);
             _db.Items.Remove(item);
             _db.SaveChanges();
             return RedirectToAction("Index");
@@ -129,6 +120,12 @@ namespace StoreApp.Controllers
                 _db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public decimal GetItemPrice(Guid item_id)
+        {
+            var item = _db.Items.Find(item_id);
+            return item.price;
         }
     }
 }
